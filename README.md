@@ -1,1 +1,1 @@
-# Fin_AI-Copilot
+# finai-copilot
