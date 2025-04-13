@@ -235,6 +235,7 @@ def main():
 
         df_kpis = pd.DataFrame(table_data).set_index("Metric")
         df = pd.DataFrame.from_dict(processed_data, orient='index').T
+        
 
         # Store the processed data for later use
         #st.session_state.data = processed_data
