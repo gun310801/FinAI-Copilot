@@ -1,12 +1,8 @@
 import json
-from langchain.tools import tool
 from typing import Dict
 
-@tool
-def financial_model()->Dict:
+def financial_model(structured_data: Dict)->Dict:
     """compute the 10 kpis (growth and margins) from the structured statement of operations data"""
-    with open("structured_data_all.json","r") as f:
-        structured_data = json.load(f)
 
     def get_year(entry):
         return entry["report_date"][:4]
@@ -83,10 +79,3 @@ def financial_model()->Dict:
     }
 
     return {kpi: format_output(values) for kpi, values in kpis.items()}
-
-if __name__ == "__main__":
-    result = financial_model.invoke({})
-    
-    # Print as JSON (optional)
-    import json
-    print(json.dumps(result, indent=2))
