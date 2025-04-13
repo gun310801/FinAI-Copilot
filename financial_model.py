@@ -63,8 +63,8 @@ def financial_model(structured_data: Dict)->Dict:
     margin_growth = compute_growth(net_margin)
     eps_growth = compute_growth(eps)
     kpis = {
-        "sales growth": sales_growth,
-        "gross margin": compute_margin(cost_sales,net_sales),
+        "sales_growth": sales_growth,
+        "gross_margin": compute_margin(cost_sales,net_sales),
         "COGS_perc_sales": compute_margin(gross_margin,net_sales),
         "rnd_perc_sales": rnd_sales,
         "rnd_growth": rnd_growth,
