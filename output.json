@@ -1,11 +1,11 @@
 {
     "processed_data": {
         "2018-09-29": {
-            "net_sales_products": 225847,
-            "net_sales_services": 39748,
+            "net_sales_products": null,
+            "net_sales_services": null,
             "net_sales_total": 265595,
-            "cost_of_sales_products": 148164,
-            "cost_of_sales_services": 15592,
+            "cost_of_sales_products": null,
+            "cost_of_sales_services": null,
             "cost_of_sales_total": 163756,
             "gross_margin": 101839,
             "operating_expenses_research_and_development": 14236,
@@ -16,114 +16,114 @@
             "income_before_tax": 72903,
             "tax_provision": 13372,
             "net_income": 59531,
-            "earnings_per_share_basic": 3.0,
-            "earnings_per_share_diluted": 2.98,
-            "shares_used_in_computing_eps_basic": 19821510,
-            "shares_used_in_computing_eps_diluted": 20000435
+            "earnings_per_share_basic": 12.01,
+            "earnings_per_share_diluted": 11.91,
+            "shares_used_in_computing_eps_basic": 4955377,
+            "shares_used_in_computing_eps_diluted": 5000109
         },
-        "2019-09-28": {
-            "net_sales_products": 213883,
-            "net_sales_services": 46291,
-            "net_sales_total": 260174,
-            "cost_of_sales_products": 144996,
-            "cost_of_sales_services": 16786,
-            "cost_of_sales_total": 161782,
-            "gross_margin": 98392,
-            "operating_expenses_research_and_development": 16217,
-            "operating_expenses_selling_general_and_administrative": 18245,
-            "operating_expenses_total": 34462,
-            "operating_income": 63930,
-            "other_income_or_expense_net": 1807,
-            "income_before_tax": 65737,
-            "tax_provision": 10481,
-            "net_income": 55256,
-            "earnings_per_share_basic": 2.99,
-            "earnings_per_share_diluted": 2.97,
-            "shares_used_in_computing_eps_basic": 18471336,
-            "shares_used_in_computing_eps_diluted": 18595651
+        "2017-09-30": {
+            "net_sales_products": null,
+            "net_sales_services": null,
+            "net_sales_total": 229234,
+            "cost_of_sales_products": null,
+            "cost_of_sales_services": null,
+            "cost_of_sales_total": 141048,
+            "gross_margin": 88186,
+            "operating_expenses_research_and_development": 11581,
+            "operating_expenses_selling_general_and_administrative": 15261,
+            "operating_expenses_total": 26842,
+            "operating_income": 61344,
+            "other_income_or_expense_net": 2745,
+            "income_before_tax": 64089,
+            "tax_provision": 15738,
+            "net_income": 48351,
+            "earnings_per_share_basic": 9.27,
+            "earnings_per_share_diluted": 9.21,
+            "shares_used_in_computing_eps_basic": 5217242,
+            "shares_used_in_computing_eps_diluted": 5251692
         },
-        "2020-09-26": {
-            "net_sales_products": 220747,
-            "net_sales_services": 53768,
-            "net_sales_total": 274515,
-            "cost_of_sales_products": 151286,
-            "cost_of_sales_services": 18273,
-            "cost_of_sales_total": 169559,
-            "gross_margin": 104956,
-            "operating_expenses_research_and_development": 18752,
-            "operating_expenses_selling_general_and_administrative": 19916,
-            "operating_expenses_total": 38668,
-            "operating_income": 66288,
-            "other_income_or_expense_net": 803,
-            "income_before_tax": 67091,
-            "tax_provision": 9680,
-            "net_income": 57411,
-            "earnings_per_share_basic": 3.31,
-            "earnings_per_share_diluted": 3.28,
-            "shares_used_in_computing_eps_basic": 17352119,
-            "shares_used_in_computing_eps_diluted": 17528214
+        "2016-09-24": {
+            "net_sales_products": null,
+            "net_sales_services": null,
+            "net_sales_total": 215639,
+            "cost_of_sales_products": null,
+            "cost_of_sales_services": null,
+            "cost_of_sales_total": 131376,
+            "gross_margin": 84263,
+            "operating_expenses_research_and_development": 10045,
+            "operating_expenses_selling_general_and_administrative": 14194,
+            "operating_expenses_total": 24239,
+            "operating_income": 60024,
+            "other_income_or_expense_net": 1348,
+            "income_before_tax": 61372,
+            "tax_provision": 15685,
+            "net_income": 45687,
+            "earnings_per_share_basic": 8.35,
+            "earnings_per_share_diluted": 8.31,
+            "shares_used_in_computing_eps_basic": 5470820,
+            "shares_used_in_computing_eps_diluted": 5500281
         }
     },
     "kpis": {
         "sales_growth": {
-            "2018": "N/A",
-            "2019": "-2.04%",
-            "2020": "5.51%"
+            "2016": "N/A",
+            "2017": "6.3%",
+            "2018": "15.86%"
         },
         "gross_margin": {
-            "2018": "61.66%",
-            "2019": "62.18%",
-            "2020": "61.77%"
+            "2016": "60.92%",
+            "2017": "61.53%",
+            "2018": "61.66%"
         },
         "COGS_perc_sales": {
-            "2018": "38.34%",
-            "2019": "37.82%",
-            "2020": "38.23%"
+            "2016": "39.08%",
+            "2017": "38.47%",
+            "2018": "38.34%"
         },
         "rnd_perc_sales": {
-            "2018": "5.36%",
-            "2019": "6.23%",
-            "2020": "6.83%"
+            "2016": "4.66%",
+            "2017": "5.05%",
+            "2018": "5.36%"
         },
         "rnd_growth": {
-            "2018": "N/A",
-            "2019": "16.29%",
-            "2020": "9.59%"
+            "2016": "N/A",
+            "2017": "8.45%",
+            "2018": "6.1%"
         },
         "sng_perc_sales": {
-            "2018": "6.29%",
-            "2019": "7.01%",
-            "2020": "7.25%"
+            "2016": "6.58%",
+            "2017": "6.66%",
+            "2018": "6.29%"
         },
         "income_margin": {
-            "2018": "26.69%",
-            "2019": "24.57%",
-            "2020": "24.15%"
+            "2016": "27.84%",
+            "2017": "26.76%",
+            "2018": "26.69%"
         },
         "ebt": {
-            "2018": "27.45%",
-            "2019": "25.27%",
-            "2020": "24.44%"
+            "2016": "28.46%",
+            "2017": "27.96%",
+            "2018": "27.45%"
         },
         "tax_margin": {
-            "2018": "5.03%",
-            "2019": "4.03%",
-            "2020": "3.53%"
+            "2016": "7.27%",
+            "2017": "6.87%",
+            "2018": "5.03%"
         },
         "net_margin": {
-            "2018": "22.41%",
-            "2019": "21.24%",
-            "2020": "20.91%"
+            "2016": "21.19%",
+            "2017": "21.09%",
+            "2018": "22.41%"
         },
         "margin_growth": {
-            "2018": "N/A",
-            "2019": "-5.25%",
-            "2020": "-1.53%"
+            "2016": "N/A",
+            "2017": "-0.45%",
+            "2018": "6.27%"
         },
         "eps_growth": {
-            "2018": "N/A",
-            "2019": "-0.33%",
-            "2020": "10.7%"
+            "2016": "N/A",
+            "2017": "11.02%",
+            "2018": "29.56%"
         }
     }
 }
