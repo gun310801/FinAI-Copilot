@@ -46,6 +46,8 @@ def generate_graph_logic(data: list, labels: list, graph_type: str, title: str) 
         f"The graph should have the title '{title}', the X-axis labels as {labels}, "
         f"and the Y-axis values as {data}. Return only the code. "
         f"Always replace plt.show() with plt.savefig(buffer, format='png')"
+        f"Make sure to use a supported matplotlib font like 'Arial' or 'Times'. Avoid Helvetica-Italic."
+        f"Make sure the graph size is (4.5,2.5)"
     )
 
     try:
