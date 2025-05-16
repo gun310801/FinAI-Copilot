@@ -1,4 +1,3 @@
-
 import sys
 print("🔍 Running Python from:", sys.executable)
 import streamlit as st
@@ -231,10 +230,13 @@ This tool returns a **PDF path**, which should be shared as a downloadable link.
                 elif ai_response.endswith(".csv"):
                     with st.chat_message("assistant"):
                         with open(ai_response, "rb") as file:
+                            # Get a clean filename by removing /tmp/ prefix and adding a descriptive name
+                            clean_filename = os.path.basename(ai_response).replace("sandbox:", "")
+                            descriptive_name = f"financial_analysis_{clean_filename}"
                             st.download_button(
                                 label="Download CSV",
                                 data=file,
-                                file_name=os.path.basename(ai_response),
+                                file_name=descriptive_name,
                                 mime="text/csv"
                             )
             else:
