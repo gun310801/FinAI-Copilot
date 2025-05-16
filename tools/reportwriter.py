@@ -10,6 +10,11 @@ import tempfile
 import os
 from dotenv import load_dotenv
 import openai
+from reportlab.lib.utils import simpleSplit
+
+def wrap_text(text, font_name="Helvetica", font_size=11, max_width=500):
+    return simpleSplit(text, font_name, font_size, max_width)
+
 
 # Load API key from the environment file
 load_dotenv("key.env")
@@ -47,7 +52,7 @@ def report_writer_logic(
     kpi_text = "\n".join(f"- {k}: {v}" for k, v in kpis.items())
 
     # Final Prompt
-    prompt = f"""You are a professional financial analyst tasked with creating a hedge fund investment report. Your report will be based on thorough financial analysis of KPIs extracted from a company's 10-K SEC filing. This report will be converted into a downloadable PDF using the PDF Report Generator tool.
+    prompt = f"""You are a professional financial analyst tasked with creating a hedge fund investment report. Your report will be based on thorough financial analysis of KPIs extracted from a company's 10-K SEC filing. This report will be converted into a downloadable PDF using the PDF Report Generator tool. Make the report detailed depending on the user.
 
 Please follow these steps to complete your task:
 
@@ -69,16 +74,15 @@ Before writing the report, conduct your analysis inside <financial_analysis> tag
 2. Identify trends, fluctuations, and performance outliers.
 3. Summarize the company's financial strengths and weaknesses.
 4. Outline risks, opportunities, and provide a final financial health assessment.
-5. these are the graph links:{graph_paths}
+
 
 
 Your final report should follow this structure:
 
 1. Executive Summary  
-2. Company Overview  
-3. Filing Highlights  
-4. Financial Performance Analysis    
-5. Conclusion
+2. Filing Highlights  
+3. Financial Performance Analysis    
+4. Conclusion
 
 Be clear, data-driven, and insightful. When finished, your report will be passed to the PDF Report Generator tool. Begin your analysis and report writing now.
 """
@@ -90,7 +94,8 @@ Be clear, data-driven, and insightful. When finished, your report will be passed
         file_path = tmp.name
         c = canvas.Canvas(file_path, pagesize=LETTER)
         width, height = LETTER
-
+        max_width = width - 100
+        
         # Add header and footer functions
         def add_header(canvas, title):
             canvas.setFont("Helvetica-Bold", 16)
@@ -144,10 +149,35 @@ Be clear, data-driven, and insightful. When finished, your report will be passed
 
                 # Handle bullet points
                 if line.strip().startswith("- "):
-                    c.drawString(50, y_position, "•")
-                    c.drawString(60, y_position, line[2:])
+                    bullet_text = line[2:].strip()
+                    wrapped_lines = wrap_text(bullet_text, font_name="Helvetica", font_size=11, max_width=width - 100)
+
+                    for i, wrap_line in enumerate(wrapped_lines):
+                        if y_position < 100:
+                            add_footer(c, current_page)
+                            c.showPage()
+                            current_page += 1
+                            add_header(c, "Financial Analysis Report")
+                            y_position = height - 80
+
+                        if i == 0:
+                            c.drawString(50, y_position, "•")
+                            c.drawString(60, y_position, wrap_line)
+                        else:
+                            c.drawString(60, y_position, wrap_line)
+                        y_position -= 15
                 else:
-                    c.drawString(40, y_position, line)
+                    wrapped_lines = wrap_text(line, font_name="Helvetica", font_size=11, max_width = max_width)
+                    for wrap_line in wrapped_lines:
+                        if y_position < 100:
+                            add_footer(c, current_page)
+                            c.showPage()
+                            current_page += 1
+                            add_header(c, "Financial Analysis Report")
+                            y_position = height - 80
+                        c.drawString(40, y_position, wrap_line)
+                        y_position -= 15
+
                 y_position -= 15
 
             y_position -= 10  # Add space between sections
@@ -155,7 +185,7 @@ Be clear, data-driven, and insightful. When finished, your report will be passed
         # Add graphs with proper spacing and captions
         for path in graph_paths:
             try:
-                if y_position < 200:  # If we're too close to the bottom
+                if y_position < 500:  # If we're too close to the bottom
                     add_footer(c, current_page)
                     c.showPage()
                     current_page += 1
@@ -169,7 +199,7 @@ Be clear, data-driven, and insightful. When finished, your report will be passed
                 h = w * aspect
 
                 # Add graph caption
-                c.setFont("Helvetica-Italic", 10)
+                
                 caption = os.path.basename(path).replace("_", " ").replace(".png", "")
                 c.drawString(40, y_position, f"Figure: {caption}")
                 y_position -= 20
@@ -184,7 +214,7 @@ Be clear, data-driven, and insightful. When finished, your report will be passed
         add_footer(c, current_page)
         c.save()
 
-    return f"Report saved at: {file_path}"
+    return {file_path}
 
 from langchain.tools import StructuredTool
 

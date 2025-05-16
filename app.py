@@ -176,14 +176,14 @@ Use the `ReportWriter_Tool` to generate a hedge fund–style investment report b
 - Pass a dictionary of KPI name-value pairs
 - Optionally include a list of graph image paths
 - Include a tone and purpose if provided by the user
-
-This tool returns a **PDF path**, which should be shared as a downloadable link.
+- Return only the link to the pdf path or an appropriate visualization preview.
 
 ---
 
 🛑 **Do NOT**:
 - Return tool response as raw dictionaries or JSON
 - Answer questions without using a tool
+
 
 🎯 Your role is to act like a data-first financial assistant — accurate, efficient, and structured.
 """
@@ -227,7 +227,7 @@ This tool returns a **PDF path**, which should be shared as a downloadable link.
                     # Display the image using st.image() wrapped in a chat message
                     with st.chat_message("assistant"):
                         st.image(ai_response, caption="Generated Graph", use_column_width=True)
-                elif ai_response.endswith(".csv"):
+                elif ai_response.endswith(".pdf"):
                     with st.chat_message("assistant"):
                         with open(ai_response, "rb") as file:
                             # Get a clean filename by removing /tmp/ prefix and adding a descriptive name
