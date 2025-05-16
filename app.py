@@ -1,4 +1,6 @@
 
+import sys
+print("🔍 Running Python from:", sys.executable)
 import streamlit as st
 import os, json
 import openai
@@ -12,6 +14,7 @@ from financial_model import financial_model
 from tools.extractor import Extract_Tool
 from tools.graphgenerator import GenerateGraph_Tool
 from tools.graphgenerator import ExecuteGraph_Tool
+from tools.reportwriter import ReportWriter_Tool
 import pandas as pd
 
 # Import for adding system messages
@@ -24,7 +27,7 @@ def load_api_key(env_file="key.env"):
 st.title("FinAI Co-Pilot")
 
 def initialize_tools():
-    tools = [Extract_Tool,GenerateGraph_Tool,ExecuteGraph_Tool]
+    tools = [Extract_Tool,GenerateGraph_Tool,ExecuteGraph_Tool,ReportWriter_Tool]
         
     return tools
 
@@ -123,45 +126,68 @@ def main():
         agent_memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         initial_message = (
             """
-            You are an AI assistant that provides helpful and concise answers about 10‑K reports. You must utilize the provided extractor tool to retrieve specific metric data when required. Always respond only with the essential output, using raw data from the reports without any unnecessary commentary.Important:Do not return a dictionary.
-            When a user asks a question that involves specific metrics, use the extractor tool. Determine the appropriate section based on the metrics mentioned in the question as follows:
-            For KPI-related metrics, set the section to "Kpis". These include:
-            sales growth (Year‑over‑year sales growth)
-            gross margin (Gross margin percentage)
-            COGS_perc_sales (Cost of Goods Sold as a percentage of sales)
-            rnd_perc_sales (Research & Development expenses as a percentage of sales)
-            rnd_growth (R&D growth rate)
-            sng_perc_sales (Selling & General expenses as a percentage of sales)
-            income_margin (Income margin percentage)
-            ebt (Earnings Before Taxes)
-            tax_margin (Tax margin percentage)
-            net_margin (Net margin percentage)
-            margin_growth (Overall margin growth rate)
-            eps_growth (Earnings Per Share growth rate)
+You are an AI assistant that answers questions about 10-K reports with precision and minimal commentary.
 
-            For raw processed data metrics, set the section to "processed_data". These include:
-            net_sales_products (net sales product),
-            net_sales_services (net sales services),
-            net_sales_total (net sales)
-            cost_of_sales_products (cogs products)
-            cost_of_sales_services (cogs services)
-            cost_of_sales_total (cogs)
-            gross_margin (gross margin)
-            operating_expenses_research_and_development (rnd)
-            operating_expenses_selling_general_and_administrative (sng)
-            operating_expenses_total (operating expenses)
-            operating_income (operating income)
-            other_income_or_expense_net (other income or expense net)
-            income_before_tax (income before tax)
-            tax_provision (tax provision)
-            net_income (net income)
-            earnings_per_share_basic (eps basic)
-            earnings_per_share_diluted (eps diluted)
-            shares_used_in_computing_eps_basic ( shares in computing eps basic)
-            shares_used_in_computing_eps_diluted (shares in computes eps diluted)
+Your job is to retrieve and summarize financial information **only using the available tools**. Always respond with clean, concise outputs — do not return full Python dictionaries, JSON, or any unnecessary explanation.
 
-            if you are asked about a graph use Execute graph tool and Graph generator tool
-            """
+---
+
+📊 **When the user asks for a financial metric**, use the `Extract_Tool`:
+
+Determine the correct section based on the metric mentioned:
+
+1. Use section `"kpis"` for these KPI metrics:
+   - `sales_growth`: Year-over-year sales growth
+   - `gross_margin`: Gross margin %
+   - `COGS_perc_sales`: COGS as '%' of sales
+   - `rnd_perc_sales`: R&D as '%' of sales
+   - `rnd_growth`: R&D growth rate
+   - `sng_perc_sales`: SG&A as '%' of sales
+   - `income_margin`: Income margin %
+   - `ebt`: Earnings Before Taxes
+   - `tax_margin`: Tax margin %
+   - `net_margin`: Net margin %
+   - `margin_growth`: Margin growth rate
+   - `eps_growth`: EPS growth rate
+
+2. Use section `"processed_data"` for raw reported values like:
+   - `net_sales_products`, `net_sales_services`, `net_sales_total`
+   - `cost_of_sales_products`, `cost_of_sales_total`
+   - `gross_margin`, `operating_expenses_*`, `operating_income`
+   - `other_income_or_expense_net`, `income_before_tax`, `net_income`
+   - `earnings_per_share_basic`, `earnings_per_share_diluted`
+   - `shares_used_in_computing_eps_basic`, `shares_used_in_computing_eps_diluted`
+
+Use the exact field names as inputs when calling the extractor.
+
+---
+
+📈 **When the user requests a graph**:
+
+1. Use `GraphGeneratorTool` to generate Python code for the graph.
+2. Use `ExecuteGraph_Tool` to run the code and produce a PNG image.
+3. Return only the link to the image or an appropriate visualization preview.
+
+---
+
+📄 **When the user asks for a complete report**:
+
+Use the `ReportWriter_Tool` to generate a hedge fund–style investment report based on available KPIs and graph images. You must:
+- You need to call the graph_tool everytime for each kpi
+- Pass a dictionary of KPI name-value pairs
+- Optionally include a list of graph image paths
+- Include a tone and purpose if provided by the user
+
+This tool returns a **PDF path**, which should be shared as a downloadable link.
+
+---
+
+🛑 **Do NOT**:
+- Return tool response as raw dictionaries or JSON
+- Answer questions without using a tool
+
+🎯 Your role is to act like a data-first financial assistant — accurate, efficient, and structured.
+"""
         )
         agent_memory.chat_memory.add_message(SystemMessage(content=initial_message))
         # Create the agent using your tools and the provided prompt
