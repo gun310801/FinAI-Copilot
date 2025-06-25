@@ -48,6 +48,7 @@ This modular approach allows plug-and-play extension for additional financial in
 
 
 ---
+![Fin AI team Poster.pdf](https://github.com/user-attachments/files/20896178/Fin.AI.team.Poster.pdf)
 
 
 
