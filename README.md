@@ -3,6 +3,7 @@
 **FinAI** is a multi-agent system designed to automate the analysis of SEC 10-K financial reports. It leverages **LangChain**, **LangGraph**, and **Streamlit** to extract key financial metrics, summarize insights, and generate customized visual reports.
 
 🗓️ Presented at the **Stevens Analytics Expo** on **May 16, 2025**
+[Fin AI team Poster.pdf](https://github.com/user-attachments/files/20896178/Fin.AI.team.Poster.pdf)
 
 ---
 
@@ -48,7 +49,7 @@ This modular approach allows plug-and-play extension for additional financial in
 
 
 ---
-[Fin AI team Poster.pdf](https://github.com/user-attachments/files/20896178/Fin.AI.team.Poster.pdf)
+
 
 
 
